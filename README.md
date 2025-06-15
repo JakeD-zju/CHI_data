@@ -12,3 +12,5 @@ This project aims to batch process the data obtained from testing using the CHI 
 选择完成后，点击'结束选择'，开始处理并绘图。当同时导入多个文件夹时，仅能显示最后一次导入的文件夹的图像。
 ﻿
 数据以数据类型_merged.txt格式存储于选择的文件夹内，如CA数据的保存文件为CA_merged.txt
+
+如需对EIS数据进行DRT分析处理，需安装hybdrt库https://github.com/jdhuang-csm/hybrid-drt
