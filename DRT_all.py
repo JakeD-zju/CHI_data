@@ -12,6 +12,7 @@ class MainApp:
         self.folder_selector = FolderSelector(self.process_data, show_buttons = [])
         self.folder_selector.flag_text = '是否开启DOP'
         self.folder_selector.as_one_fuc()
+        self.folder_selector.as_one_fuc()
         self.folder_selector.mainloop()
         
     def process_data(self):
