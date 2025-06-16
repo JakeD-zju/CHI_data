@@ -52,15 +52,6 @@ class MainApp:
                     file_timestamps.append((f, timestamp))
         return file_timestamps
 
-        # 对所有数据进行填充
-        for key in data:
-            current_length = len(data[key])
-            if current_length < max_length:
-                # 用 np.nan 填充到最大长度
-                data[key] = data[key] + [np.nan] * (max_length - current_length)
-
-        return n, data, plt_name
-
     def process_sorted_files(self, sorted_files, subfolder, button_text):
         n = 0
         data = {}
