@@ -24,7 +24,8 @@ class MainApp:
                 plt_name = f'DRT_Fit_Results_{sorted_files[0][0].split(".")[0]}'
                 parent_dir = os.path.dirname(subfolder)
                 self.save_data_to_csv(data, parent_dir, plt_name)
-                self.plot_out_window(fits, plt_name, parent_dir)
+                if fits:
+                    self.plot_out_window(fits, plt_name, parent_dir)
         except Exception as e:
             print(f"Error in process_data: {e}")
         finally:
@@ -73,7 +74,6 @@ class MainApp:
         return fits, data
 
     def plot_out_window(self, fits, plt_name, parent_dir):
-        
         # 绘制所有文件的EIS拟合结果
         fig, axes = plt.subplots(1, 1, figsize=(7, 7), constrained_layout=True)
         
@@ -92,11 +92,31 @@ class MainApp:
         # 保存图形
         fig.tight_layout()
         fig.savefig(os.path.join(parent_dir, f'{plt_name}.png'), dpi=300)
+        
                 
-    def save_data_to_csv(self, data, parent_dir, plt_name):
-        data_df = pd.DataFrame(data)
-        data_df.to_csv(os.path.join(parent_dir, f'{plt_name}.txt'), 
-                       sep='\t', index=False)
+        # 将图形嵌入到 FolderSelector 的 right_frame 中
+        try:
+            # 导入 FigureCanvasTkAgg（如果尚未导入）
+            from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+            
+            # 获取 FolderSelector 的 right_frame
+            right_frame = self.folder_selector.right_frame
+            
+            # 清除 right_frame 中的所有现有控件
+            for widget in right_frame.winfo_children():
+                widget.destroy()
+            
+            # 创建并添加画布
+            canvas = FigureCanvasTkAgg(fig, master=right_frame)
+            canvas.draw()
+            canvas.get_tk_widget().pack(fill="both", expand=True)
+            
+            # 保存画布引用，避免被垃圾回收
+            self.folder_selector.canvas = canvas
+            
+        except Exception as e:
+            print(f"无法在窗口中显示图形: {e}")
+            plt.close(fig)  # 关闭图形，避免内存泄漏
 
 if __name__ == "__main__":
     app = MainApp()
