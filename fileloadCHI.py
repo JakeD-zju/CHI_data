@@ -155,6 +155,7 @@ class FileLoaderCHI:
         # 保存为 ZView 格式的文件
         zv.to_csv(os.path.splitext(filename)[0] + '_ZView.txt', sep='\t', index=False, header=False)
         plt_name = ['z_real/Ω', 'z_imag/Ω']
+        z_imag = z_imag * -1
         return z_real, z_imag, plt_name
 
     def get_CV(self, filename):
