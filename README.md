@@ -1,4 +1,4 @@
-# CHI_data
+# CHIdata
 This project aims to batch process the data obtained from testing using the CHI electrochemical workstation, converting it into a format that can be directly pasted into Origin for plotting.
 
 该脚本可选择存有辰华工作站数据的文件夹进行数据处理
